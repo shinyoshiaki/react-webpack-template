@@ -37,7 +37,10 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./public/index.html",
+      template:
+        process.env.NODE_ENV === "production"
+          ? "./public/index.prod.html"
+          : "./public/index.html",
       favicon: "./public/favicon.ico"
     }),
     new WorkboxWebpackPlugin.GenerateSW({
