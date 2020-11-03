@@ -1,25 +1,25 @@
 import React, { FC, useState, useRef, useEffect } from "react";
-const Worker = require("./test.worker.ts");
+//@ts-expect-error
+import Worker from "./test.worker";
 
-const App: FC = () => {
+export const App: FC = () => {
   const workerRef = useRef<Worker>(new Worker());
-  const [msg, setMsg] = useState("");
-
+  const [msg, setMsg] = useState("msg");
   useEffect(() => {
     const worker = workerRef.current;
-
-    worker.onmessage = e => {
+    worker.onmessage = (e: any) => {
       setMsg(e.data);
     };
-
     worker.postMessage("call");
-
     return () => {
       worker.terminate();
     };
   }, []);
 
-  return <div>{msg}</div>;
+  return (
+    <div>
+      {msg}
+      <button>aaa</button>
+    </div>
+  );
 };
-
-export default App;

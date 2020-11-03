@@ -1,21 +1,17 @@
-const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
+// const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
 
 const dist = __dirname + "/build";
 
 module.exports = {
   entry: "./src/index",
+  devtool: "inline-source-map",
   output: {
     path: dist,
-    filename: "bundle.js"
+    filename: "bundle.js",
   },
   resolve: {
-    alias: {
-      react: path.resolve("./node_modules/react"),
-      "react-dom": path.resolve("./node_modules/react-dom")
-    },
-    extensions: [".ts", ".tsx", ".js", ".json"]
+    extensions: [".ts", ".tsx", ".js", ".json"],
   },
   module: {
     rules: [
@@ -24,16 +20,22 @@ module.exports = {
         use: [
           {
             loader: "worker-loader",
-            options: { inline: true, name: "[name].js" }
           },
-          "ts-loader"
-        ]
+          "ts-loader",
+        ],
       },
       {
-        test: /\.ts(x)?$/,
-        use: { loader: "ts-loader" }
-      }
-    ]
+        test: /\.tsx?$/,
+        use: [
+          {
+            loader: "ts-loader",
+            options: {
+              transpileOnly: true,
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -41,15 +43,18 @@ module.exports = {
         process.env.NODE_ENV === "production"
           ? "./public/index.prod.html"
           : "./public/index.html",
-      favicon: "./public/favicon.ico"
+      favicon: "./public/favicon.ico",
     }),
-    new WorkboxWebpackPlugin.GenerateSW({
-      globDirectory: dist,
-      globPatterns: ["*.{html,js,css}", "images/*.{png,gif,webp,svg,jpg,jpeg}"],
-      swDest: dist + "/sw.js"
-    })
+    // new WorkboxWebpackPlugin.GenerateSW({
+    //   globDirectory: dist,
+    //   globPatterns: ["*.{html,js,css}", "images/*.{png,gif,webp,svg,jpg,jpeg}"],
+    //   swDest: dist + "/sw.js",
+    // }),
   ],
   devServer: {
-    disableHostCheck: true
-  }
+    contentBase: "public",
+    disableHostCheck: true,
+    open: true,
+    hot: true,
+  },
 };

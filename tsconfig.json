@@ -1,14 +1,12 @@
 {
   "compilerOptions": {
     "sourceMap": true,
-    "target": "es6",
-    "module": "es6",
+    "target": "ESNext",
+    "module": "ES2015",
     "jsx": "react",
-    "moduleResolution": "node",
+    "strict": true,
     "allowSyntheticDefaultImports": true,
-    "lib": ["esnext", "dom"],
-    "noImplicitAny": true,
-    "strictNullChecks": true
+    "lib": ["esnext", "dom"]
   },
   "exclude": ["node_modules"]
 }

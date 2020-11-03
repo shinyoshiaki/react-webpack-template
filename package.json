@@ -3,38 +3,31 @@
   "version": "0.0.1",
   "private": true,
   "homepage": ".",
-  "dependencies": {
-    "react": "^16.8.1",
-    "react-dom": "^16.8.1",
-    "styled-components": "^4.2.0"
-  },
   "scripts": {
-    "bundle": "webpack",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production",
-    "type": "tsc  --noEmit",
-    "serve": "ts-node ./server.ts",
-    "ngrok": "./ngrok http 9000",
-    "https": "run-p serve ngrok"
+    "bundle": "webpack",
+    "depcheck": "depcheck",
+    "dev": "webpack serve --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "type": "tsc  --noEmit"
+  },
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   },
   "devDependencies": {
-    "@types/express": "^4.17.1",
-    "@types/node": "^10.12.18",
-    "@types/react": "^16.7.20",
-    "@types/react-dom": "^16.0.11",
-    "express": "^4.17.1",
-    "html-webpack-plugin": "^3.2.0",
-    "npm-run-all": "^4.1.5",
-    "ts-loader": "^6.0.1",
-    "ts-node": "^8.4.1",
-    "tslib": "^1.10.0",
-    "typescript": "^3.7.0-beta",
-    "webpack": "^4.29.0",
-    "webpack-cli": "^3.2.1",
-    "webpack-dev-server": "^3.1.14",
-    "workbox-sw": "^4.3.1",
-    "workbox-webpack-plugin": "^4.3.1",
-    "worker-loader": "^2.0.0"
+    "@types/react": "^16.9.55",
+    "@types/react-dom": "^16.9.9",
+    "depcheck": "^1.2.0",
+    "html-webpack-plugin": "^4.5.0",
+    "ts-loader": "^8.0.7",
+    "tslib": "^2.0.3",
+    "typescript": "^4.1.0-beta",
+    "webpack": "^5.3.2",
+    "webpack-cli": "^4.1.0",
+    "webpack-dev-server": "^3.11.0",
+    "workbox-sw": "^5.1.4",
+    "workbox-webpack-plugin": "^5.1.4",
+    "worker-loader": "^3.0.5"
   }
 }
