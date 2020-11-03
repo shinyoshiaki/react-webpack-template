@@ -1,5 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-// const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
+const { GenerateSW } = require("workbox-webpack-plugin");
 
 const dist = __dirname + "/build";
 
@@ -8,6 +8,7 @@ module.exports = {
   devtool: "inline-source-map",
   output: {
     path: dist,
+    publicPath: "./",
     filename: "bundle.js",
   },
   resolve: {
@@ -25,6 +26,15 @@ module.exports = {
         ],
       },
       {
+        test: /\.comlink\.ts$/,
+        use: [
+          {
+            loader: "comlink-loader",
+          },
+          "ts-loader",
+        ],
+      },
+      {
         test: /\.tsx?$/,
         use: [
           {
@@ -34,6 +44,14 @@ module.exports = {
             },
           },
         ],
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(jpe?g|png|gif|ico|svg)$/i,
+        use: [{ loader: "file-loader" }],
       },
     ],
   },
@@ -45,15 +63,16 @@ module.exports = {
           : "./public/index.html",
       favicon: "./public/favicon.ico",
     }),
-    // new WorkboxWebpackPlugin.GenerateSW({
-    //   globDirectory: dist,
-    //   globPatterns: ["*.{html,js,css}", "images/*.{png,gif,webp,svg,jpg,jpeg}"],
-    //   swDest: dist + "/sw.js",
-    // }),
+    new GenerateSW({
+      swDest: dist + "/sw.js",
+      clientsClaim: true,
+      skipWaiting: true,
+    }),
   ],
   devServer: {
     contentBase: "public",
     disableHostCheck: true,
+    historyApiFallback: true,
     open: true,
     hot: true,
   },
