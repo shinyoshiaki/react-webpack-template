@@ -5,6 +5,7 @@ import Worker from "./test.worker";
 export const App: FC = () => {
   const workerRef = useRef<Worker>(new Worker());
   const [msg, setMsg] = useState("msg");
+
   useEffect(() => {
     const worker = workerRef.current;
     worker.onmessage = (e: any) => {
